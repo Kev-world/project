@@ -54,9 +54,7 @@ async def get_db():
         pass
 
 # oauth2_bearer = OAuth2PasswordBearer(tokenUrl='token')
-
-@router.get('/user/current_user')
-async def get_current_user(token: str):
+async def get_current_user(token: str = Depends(JWTBearer())):
     try:
         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
         user_id: str = payload.get('userId')
@@ -80,15 +78,6 @@ async def validate_user(_id: str, db=Depends(get_db)):
     user_doc['_id'] = str(user_doc['_id'])
     user = User(**user_doc)
     return user
-
-# @router.get('/users')
-# async def get_all(db=Depends(get_db)):
-#     li = []
-#     user = await db.get_collection('userdocuments').find().to_list(100)
-#     for u in user:
-#         u['_id'] = str(u['_id'])
-#         li.append(User(**u))
-#     return li
 
 
 @router.post('/users/login')
