@@ -54,6 +54,7 @@ async def get_db():
         pass
 
 # oauth2_bearer = OAuth2PasswordBearer(tokenUrl='token')
+@router.get('/current_user')
 async def get_current_user(token: str = Depends(JWTBearer())):
     try:
         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
