@@ -8,3 +8,5 @@ class CreateTaskDto(BaseModel):
     is_completed: bool
     project_id: str = Field(min_length=36, max_length=36)
     
+class AssignTaskDto(BaseModel):
+    assigned_to: str
