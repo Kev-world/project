@@ -1,6 +1,7 @@
 from databases.sqlDB import Base
 from sqlalchemy import ARRAY, Column, ForeignKey, Integer, String, Boolean, Date
 from sqlalchemy.dialects.postgresql import UUID
+from sqlalchemy.dialects.mysql import JSON
 import uuid
 
 class Projects(Base):
@@ -9,6 +10,8 @@ class Projects(Base):
     title = Column(String(50))
     description = Column(String(100))
     date_created = Column(Date)
+    # participants = Column(ARRAY(String(100))) for postgres
+    participants = Column(JSON)
     owner_id = Column(String(100))
 
 class Tasks(Base):
